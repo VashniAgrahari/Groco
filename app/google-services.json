@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "449240139330",
+    "project_id": "groco-6c493",
+    "storage_bucket": "groco-6c493.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449240139330:android:93786cf001fc0d83028fdb",
+        "android_client_info": {
+          "package_name": "com.vashuag.grocery"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrVi4DGIfanvdj1LFuI1YDdxL4305h9I0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
