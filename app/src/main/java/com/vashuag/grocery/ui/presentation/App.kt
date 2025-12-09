@@ -1,5 +1,6 @@
 package com.vashuag.grocery.ui.presentation
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -52,25 +53,28 @@ fun App() {
                 actions = { TopBarActions(route, navController) },
                 navigationIcon = { TopBarNavigationIcon(route, navController) })
         }, snackbarHost = { SnackbarHost(hostState = snackBarHostState) }) { innerPadding ->
-            PermissionsView {
-                NavHost(
-                    navController,
-                    startDestination = AppRoutes.HomeScreen,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding)
-                ) {
-                    composable<AppRoutes.HomeScreen> {
-                        LaunchedEffect(Unit) {
-                            route.value = AppRoutes.HomeScreen
+            Column(Modifier
+                .fillMaxSize()
+                .padding(innerPadding)) {
+                PermissionsView {
+                    NavHost(
+                        navController,
+                        startDestination = AppRoutes.HomeScreen,
+                        modifier = Modifier
+                            .fillMaxSize()
+                    ) {
+                        composable<AppRoutes.HomeScreen> {
+                            LaunchedEffect(Unit) {
+                                route.value = AppRoutes.HomeScreen
+                            }
+                            HomeScreen()
                         }
-                        HomeScreen()
-                    }
-                    composable<AppRoutes.ScanItemsScreen> {
-                        LaunchedEffect(Unit) {
-                            route.value = AppRoutes.ScanItemsScreen
+                        composable<AppRoutes.ScanItemsScreen> {
+                            LaunchedEffect(Unit) {
+                                route.value = AppRoutes.ScanItemsScreen
+                            }
+                            ScanningScreen()
                         }
-                        ScanningScreen()
                     }
                 }
             }
