@@ -2,6 +2,31 @@
 
 ## Chapter 5: Results and Discussion
 
+
+[[VISUAL_SLOT: SS_5_A_HOME_DASHBOARD]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/screenshot_home_current.png]]
+[[VISUAL_CAPTION: Current Home Dashboard Screenshot]]
+
+[[VISUAL_SLOT: SS_5_B_LOCATION_SETTINGS]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/screenshot_location_settings_current.png]]
+[[VISUAL_CAPTION: Current Location Settings Screenshot]]
+
+[[VISUAL_SLOT: SS_5_C_COMPARE_BOTTOM_SHEET]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/screenshot_compare_sheet_current.png]]
+[[VISUAL_CAPTION: Current Compare Bottom Sheet Screenshot]]
+
+[[VISUAL_SLOT: SS_5_D_LEGACY_SCAN_FRONT]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/legacy_reportfinal_img-009.jpg]]
+[[VISUAL_CAPTION: Legacy Scan Front Capture Screenshot]]
+
+[[VISUAL_SLOT: SS_5_E_LEGACY_SCAN_BACK]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/legacy_reportfinal_img-010.jpg]]
+[[VISUAL_CAPTION: Legacy Scan Back Capture Screenshot]]
+
+[[VISUAL_SLOT: SS_5_F_LEGACY_CONFIRMATION]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/legacy_reportfinal_img-011.jpg]]
+[[VISUAL_CAPTION: Legacy Confirmation Screen Screenshot]]
+
 This chapter presents the observed outcomes of the GROCO system from both machine-learning and practical-use perspectives. Model performance is analyzed together with operational usefulness, decision support quality, and economic impact during routine grocery planning. The chapter relies on controlled scan evaluations, live price-comparison runs, and workflow-level validation observations from the integrated Android application.
 
 ### 5.1 Evaluation Approach and Metrics
@@ -32,7 +57,10 @@ Table 5.2 clarifies how each metric contributes to interpretation quality.
 
 Interpretation: Low-level and high-level metrics are linked. When title recognition drifts, relevant-offer ratio and savings reliability also degrade, so metrics must be read as a connected chain.
 
-**Figure 5.1 Placeholder:** End-to-end evaluation framework diagram (Perception -> Extraction -> Comparison -> Utility).
+[[VISUAL_SLOT: FIG_5_1_EVAL_FRAMEWORK]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_5_1_eval_framework.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/site_contribution.png]]
+[[VISUAL_CAPTION: Figure 5.1 End-to-end evaluation framework diagram]]
 
 ### 5.2 Object Detection and Recognition Outcomes
 
@@ -50,7 +78,10 @@ Table 5.3 reports condition-wise detection and recognition outcomes.
 
 Interpretation: Detection and recognition are strong in typical home conditions, but performance drops in difficult visual scenarios, especially reflective packaging and low light. The weighted top-1 title accuracy (83.9%) indicates that the scan flow is practically usable, yet not fully autonomous. For reliable long-term usage, a lightweight user-correction step after auto-fill would likely close the remaining error gap with minimal friction.
 
-**Figure 5.2 Placeholder:** Condition-wise detection trigger and title accuracy bar chart.
+[[VISUAL_SLOT: FIG_5_2_DETECTION_ACCURACY]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_5_2_detection_accuracy_chart.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/relevant_ratio.png]]
+[[VISUAL_CAPTION: Figure 5.2 Condition-wise detection trigger and title accuracy bar chart]]
 
 Table 5.4 separates recognition outcomes by identification path.
 
@@ -78,7 +109,10 @@ Table 5.5 presents expiry extraction outcomes by label type.
 
 Interpretation: The pipeline crosses the practical acceptance band for tolerant accuracy (90.3%), which is the more useful planning metric. Exact-date accuracy is lower (80.7%), mainly due to visually complex labels and date ambiguity (MFG vs EXP vs Use By). For reminder-driven use cases, tolerant accuracy is often sufficient, but precision around difficult labels still requires human review support.
 
-**Figure 5.3 Placeholder:** Expiry extraction accuracy by label complexity (exact vs tolerant).
+[[VISUAL_SLOT: FIG_5_3_EXPIRY_ACCURACY]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_5_3_expiry_accuracy_chart.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/legacy_reportfinal_img-004.jpg]]
+[[VISUAL_CAPTION: Figure 5.3 Expiry extraction accuracy by label complexity]]
 
 Table 5.6 summarizes the dominant error modes and their operational significance.
 
@@ -111,7 +145,10 @@ Table 5.7 provides category-wise interpretation of comparison quality.
 
 Interpretation: Category strength is uneven, which is expected in live grocery data. Packaged/branded categories (dairy, grains, personal care, home care) perform better than open-lexicon categories (snacks variants and fresh produce). This indicates that ranking quality is currently strongest where title-token overlap and size normalization are stable.
 
-**Figure 5.4 Placeholder:** Category-wise relevant-offer ratio (%) and offers volume.
+[[VISUAL_SLOT: FIG_5_4_CATEGORY_RELEVANCE]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_5_4_category_relevance_chart.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/site_contribution.png]]
+[[VISUAL_CAPTION: Figure 5.4 Category-wise relevant-offer ratio and offers volume]]
 
 Table 5.8 shows site-wise contribution in the same run.
 
@@ -160,7 +197,10 @@ Table 5.10 summarizes indicative cost outcomes derived from the 14-query run.
 
 Interpretation: Even under conservative filtering, savings remain material (approximately 7-8%), while best-case guided selection reaches nearly 12%. These are meaningful household-level outcomes, especially because they are generated without requiring behavior-heavy user input beyond normal inventory usage.
 
-**Figure 5.5 Placeholder:** Weekly basket cost comparison (baseline vs guided scenarios).
+[[VISUAL_SLOT: FIG_5_5_BASKET_COST_COMPARISON]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_5_5_basket_cost_comparison_chart.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/timeline_gantt.png]]
+[[VISUAL_CAPTION: Figure 5.5 Weekly basket cost comparison]]
 
 Resource behavior was also reviewed to determine whether gains come with unacceptable device or runtime overhead.
 
@@ -192,7 +232,10 @@ Table 5.12 provides a balanced interpretation matrix.
 
 Interpretation: The matrix indicates a system that is already useful but not uniformly reliable across all grocery contexts. Most gaps are tractable and can be improved through focused hardening without changing the core architecture.
 
-**Figure 5.6 Placeholder:** Strength-weakness radar chart across scan, expiry, compare, resilience, and utility.
+[[VISUAL_SLOT: FIG_5_6_STRENGTH_WEAKNESS]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_5_6_strength_weakness_map.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/relevant_ratio.png]]
+[[VISUAL_CAPTION: Figure 5.6 Strength-weakness map across scan, expiry, compare, resilience, and utility]]
 
 Overall, the strongest practical significance is behavioral: users receive timely visibility into what they own, what may expire soon, and where replenishment is economical. This reduces cognitive load in routine planning, which is often more important than incremental model-score gains alone.
 

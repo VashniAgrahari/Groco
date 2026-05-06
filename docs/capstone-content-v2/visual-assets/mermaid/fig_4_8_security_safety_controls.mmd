@@ -1,0 +1,6 @@
+flowchart LR
+  S1[Permission Checks] --> S5[Safe Runtime]
+  S2[Input Sanitization] --> S5
+  S3[Network Timeouts] --> S5
+  S4[Partial Failure Handling] --> S5
+  S6[Local-First Storage] --> S5

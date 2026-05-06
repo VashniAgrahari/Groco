@@ -1,0 +1,15 @@
+flowchart TD
+  R1[User Query] --> R2[Adapter A]
+  R1 --> R3[Adapter B]
+  R1 --> R4[Adapter C]
+  R1 --> R5[Adapter D...]
+  R2 --> R6[Raw Offers]
+  R3 --> R6
+  R4 --> R6
+  R5 --> R6
+  R6 --> R7[Normalization]
+  R7 --> R8[Deduplication]
+  R8 --> R9[Relevance Filter]
+  R9 --> R10[Cluster by Quantity + Similarity]
+  R10 --> R11[Sort by Best Value]
+  R11 --> R12[Final Comparison Output]

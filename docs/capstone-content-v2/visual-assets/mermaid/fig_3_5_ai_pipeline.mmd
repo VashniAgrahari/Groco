@@ -1,0 +1,16 @@
+flowchart LR
+  I1[Detected Crop] --> I2[Image Embedding]
+  I2 --> I3[Nearest Neighbor Search]
+  I3 --> I4{Confidence Sufficient?}
+  I4 -- Yes --> I5[Use Retrieved Identity]
+  I4 -- No --> I6[Use LLM for Title]
+  I6 --> I7[Parse + Clean Title]
+  I5 --> I8[Final Item Identity]
+  I7 --> I8
+
+  L1[Label Image] --> L2[Text/Date Extraction]
+  L2 --> L3{Valid Expiry Parsed?}
+  L3 -- Yes --> L4[Use Parsed Expiry]
+  L3 -- No --> L5[LLM Expiry Fallback]
+  L4 --> L6[Final Expiry Date]
+  L5 --> L6

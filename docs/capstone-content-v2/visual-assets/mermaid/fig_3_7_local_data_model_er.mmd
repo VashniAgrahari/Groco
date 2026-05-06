@@ -1,0 +1,32 @@
+erDiagram
+  GROCERY_ITEM {
+    long id
+    string title
+    float[] embeddings
+    string image_path
+    long expiry_date_ms
+    double quantity
+    string unit
+    double low_stock_threshold
+    int remind_before_days
+  }
+
+  LOCATION_SETTINGS {
+    long id
+    string city
+    string area
+    string pincode
+    double latitude
+    double longitude
+    bool has_coordinates
+    int max_results_per_site
+  }
+
+  COMPARISON_HISTORY {
+    long id
+    string fingerprint
+    string query_text
+    string location_json
+    string response_json
+    long created_at_ms
+  }

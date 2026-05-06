@@ -1,0 +1,15 @@
+flowchart LR
+  A[Camera Capture] --> B[Object Detection]
+  B --> C[Dual-Step Scan]
+  C --> D[Title + Expiry Extraction]
+  C --> E[Embedding Generation]
+  E --> F[Local Similarity Search]
+  D --> G[Inventory Store]
+  F --> G
+  G --> H[Home Dashboard]
+  H --> I[Price Compare]
+  I --> J[Multi-Site Adapters]
+  J --> K[Offer Matching + Ranking]
+  K --> L[Reorder Link]
+  G --> M[Reminder Worker]
+  M --> N[Expiry Notifications]

@@ -2,7 +2,10 @@
 
 This chapter explains how **GROCO – Smart Grocery Supply Management System** was implemented as a single Android application and how its behavior was validated through layered testing. The implementation combines AI/ML components (object detection, image-based recognition, and language-vision extraction) with software modules for persistence, state management, network aggregation, and background reminders. The chapter emphasizes module-level design and integration decisions, not function-level walkthroughs.
 
-[Figure 4.1 End-to-end implementation and verification map for GROCO – Smart Grocery Supply Management System]
+[[VISUAL_SLOT: FIG_4_1_IMPL_VERIFICATION_MAP]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_4_1_impl_verification_map.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/testing_pyramid.png]]
+[[VISUAL_CAPTION: Figure 4.1 End-to-end implementation and verification map for GROCO – Smart Grocery Supply Management System]]
 
 ## 4.1 Development Workflow and Integration Stages
 
@@ -68,7 +71,10 @@ The scan flow is step-based:
 
 Alternating between these two steps gives better practical outcomes than single-image extraction, because packaging front faces and expiry labels are often on different surfaces.
 
-[Figure 4.2 Live scan, overlay, capture, and crop data path]
+[[VISUAL_SLOT: FIG_4_2_SCAN_OVERLAY_CROP_FLOW]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_4_2_scan_overlay_crop_flow.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/legacy_reportfinal_img-001.jpg]]
+[[VISUAL_CAPTION: Figure 4.2 Live scan, overlay, capture, and crop data path]]
 
 ### 4.2.2 Feature Embedding and Item Recognition Logic
 
@@ -126,7 +132,10 @@ The stored grocery entity contains:
 
 As a result, one complete two-step scan creates an item that is immediately usable by home inventory display, compare action, and reminder scheduling.
 
-[Figure 4.3 Two-step identity + expiry extraction pipeline]
+[[VISUAL_SLOT: FIG_4_3_IDENTITY_EXPIRY_PIPELINE]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_4_3_identity_expiry_pipeline.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/legacy_reportfinal_img-005.jpg]]
+[[VISUAL_CAPTION: Figure 4.3 Two-step identity + expiry extraction pipeline]]
 
 ### 4.2.4 Comparison Engine Integration
 
@@ -159,7 +168,10 @@ A practical reliability feature is partial-failure tolerance. If some sites fail
 
 In debug mode, the view-model can return deterministic demo data when live fetches fail. This keeps UI and E2E flows testable even under unstable internet conditions.
 
-[Figure 4.4 Parallel adapter fan-out and match/rank aggregation]
+[[VISUAL_SLOT: FIG_4_4_PARALLEL_ADAPTER_FANOUT]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_4_4_parallel_adapter_fanout.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/compare_pipeline.png]]
+[[VISUAL_CAPTION: Figure 4.4 Parallel adapter fan-out and match/rank aggregation]]
 
 ### 4.2.5 Notification Pipeline
 
@@ -222,7 +234,10 @@ The implementation was evaluated in an Android-native environment with no mandat
 
 In addition to tool availability, runtime posture assumes predictable Android lifecycle behavior during background work. Periodic reminder execution depends on OS scheduling policies, battery optimizations, and permission persistence across app restarts. Therefore, validation was designed to include both immediate behavior checks (UI and repository outcomes) and delayed behavior checks (worker-triggered reminder outcomes). This dual perspective is important for mobile systems where foreground and background execution guarantees differ significantly.
 
-[Figure 4.5 Environment stack and runtime boundaries]
+[[VISUAL_SLOT: FIG_4_5_ENV_STACK]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_4_5_environment_stack.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/timeline_gantt.png]]
+[[VISUAL_CAPTION: Figure 4.5 Environment stack and runtime boundaries]]
 
 [Table 4.4 Experimental setup summary]
 
@@ -278,7 +293,10 @@ This combination provides confidence in both internals (logic) and user journeys
 
 For reproducibility, verification is organized around explicit execution gates. Typical project-level checks include unit tests, linting, debug assembly, instrumentation where available, and full Maestro suite execution. The strategy separates deterministic failures (logic/test assertions) from environment-dependent failures (network variability, external site behavior, emulator availability). This distinction improves triage speed because a failing category immediately indicates whether remediation should happen in application code, infrastructure setup, or external integration assumptions.
 
-[Figure 4.6 Test pyramid for GROCO – Smart Grocery Supply Management System]
+[[VISUAL_SLOT: FIG_4_6_TEST_PYRAMID]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_4_6_test_pyramid.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/testing_pyramid.png]]
+[[VISUAL_CAPTION: Figure 4.6 Test pyramid for GROCO – Smart Grocery Supply Management System]]
 
 [Table 4.5 Test layers and defect focus]
 
@@ -350,7 +368,10 @@ Representative E2E checkpoints:
 - compare flow shows `Results for ...`,
 - scan route opens and returns cleanly.
 
-[Figure 4.7 E2E checkpoint flow for regression validation]
+[[VISUAL_SLOT: FIG_4_7_E2E_CHECKPOINT_FLOW]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_4_7_e2e_checkpoint_flow.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/screenshot_home_current.png]]
+[[VISUAL_CAPTION: Figure 4.7 E2E checkpoint flow for regression validation]]
 
 ## 4.6 Observed Challenges and Fixes
 
@@ -398,7 +419,10 @@ Security and safety were integrated at module level.
 - **Safe reminder positioning**: reminders are advisory signals; users remain final decision-makers for consumption safety.
 - **Dependency hygiene**: version-managed dependencies support controlled upgrades and security patch tracking.
 
-[Figure 4.8 Security and safety controls across scan, compare, and notify layers]
+[[VISUAL_SLOT: FIG_4_8_SECURITY_CONTROLS]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_4_8_security_safety_controls.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/legacy_reportfinal_img-004.jpg]]
+[[VISUAL_CAPTION: Figure 4.8 Security and safety controls across scan, compare, and notify layers]]
 
 ## 4.8 Chapter Summary
 

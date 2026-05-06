@@ -1,0 +1,6 @@
+flowchart TD
+  F1[Scan Failure] --> F2[Retry Capture]
+  F3[LLM Uncertain Output] --> F4[Fallback / Manual Correction]
+  F5[One Site Compare Failure] --> F6[Return Partial Results]
+  F7[Notification Permission Denied] --> F8[Silent Skip + Continue App]
+  F9[No Network] --> F10[Inventory Functions Continue Offline]

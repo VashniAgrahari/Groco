@@ -1,0 +1,16 @@
+flowchart LR
+  T1[CameraX] --> U1[Image Capture Layer]
+  T2[ML Kit] --> U2[Object Detection Layer]
+  T3[Gemini API] --> U3[Semantic Extraction Layer]
+  T4[ObjectBox] --> U4[Local Persistence Layer]
+  T5[Ktor/OkHttp] --> U5[Marketplace Access Layer]
+  T6[WorkManager] --> U6[Background Reminder Layer]
+  T7[Maestro] --> U7[E2E Validation Layer]
+
+  U1 --> A[Integrated GROCO App]
+  U2 --> A
+  U3 --> A
+  U4 --> A
+  U5 --> A
+  U6 --> A
+  U7 --> A

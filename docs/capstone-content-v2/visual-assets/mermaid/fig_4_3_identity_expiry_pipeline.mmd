@@ -1,0 +1,10 @@
+flowchart LR
+  B1[Front Crop] --> B2[Embedding]
+  B2 --> B3[Similarity Match]
+  B3 --> B4[Title Decision]
+
+  C1[Back/Label Crop] --> C2[Date Extraction]
+  C2 --> C3[Expiry Decision]
+
+  B4 --> D1[Final Item Record]
+  C3 --> D1

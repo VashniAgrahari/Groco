@@ -1,0 +1,11 @@
+flowchart TD
+  Q[Compare Request] --> A[Blinkit Adapter]
+  Q --> B[Zepto Adapter]
+  Q --> C[Instamart Adapter]
+  Q --> D[Amazon/Jio/BigBasket/Flipkart]
+  A --> X[Aggregated Offer Pool]
+  B --> X
+  C --> X
+  D --> X
+  X --> Y[Matcher + Ranker]
+  Y --> Z[UI Result Cards]

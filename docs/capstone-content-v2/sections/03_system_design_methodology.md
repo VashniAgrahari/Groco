@@ -28,7 +28,10 @@ Design choices were therefore evaluated on three axes simultaneously:
 
 [Table 3.1 Design constraints, response decisions, and trade-offs]
 
-[Figure 3.1 Constraint-to-design mapping for GROCO modules]
+[[VISUAL_SLOT: FIG_3_1_CONSTRAINT_DESIGN_MAP]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_3_1_constraint_design_map.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/integrated_architecture.png]]
+[[VISUAL_CAPTION: Figure 3.1 Constraint-to-design mapping for GROCO modules]]
 
 These constraints also informed non-functional goals for the chapter methodology: bounded latency for core flows, failure transparency instead of silent breakdowns, and storage designs that support future analytics without violating local-first behavior.
 
@@ -55,11 +58,20 @@ Architecturally, GROCO uses dependency injection to keep module coupling low. St
 
 A key architectural property is **graceful partial operation**. If network providers fail, inventory still works. If AI extraction fails for a scan, fallback paths preserve item creation with minimal defaults. If reminders cannot run due permission denial, inventory continuity is unaffected. This containment is essential for a consumer utility application where users expect continuity over perfection.
 
-[Figure 3.2 End-to-end architecture: camera-to-inventory-to-compare-to-reminders]
+[[VISUAL_SLOT: FIG_3_2_END_TO_END_ARCHITECTURE]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_3_2_end_to_end_architecture.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/integrated_architecture.png]]
+[[VISUAL_CAPTION: Figure 3.2 End-to-end architecture: camera-to-inventory-to-compare-to-reminders]]
 
-[Figure 3.3 Scan registration data flow with dual-step capture]
+[[VISUAL_SLOT: FIG_3_3_SCAN_REGISTRATION_FLOW]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_3_3_scan_registration_flow.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/scan_pipeline.png]]
+[[VISUAL_CAPTION: Figure 3.3 Scan registration data flow with dual-step capture]]
 
-[Figure 3.4 Multi-site compare and reorder handoff workflow]
+[[VISUAL_SLOT: FIG_3_4_COMPARE_REORDER_FLOW]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_3_4_compare_reorder_flow.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/compare_pipeline.png]]
+[[VISUAL_CAPTION: Figure 3.4 Multi-site compare and reorder handoff workflow]]
 
 [Table 3.2 Component responsibility matrix (UI, domain, data, background tasks)]
 
@@ -120,7 +132,10 @@ A single-model approach could appear simpler, but it would reduce control over f
 
 This is more aligned with production reliability goals than purely end-to-end prediction, especially in consumer apps where image quality and textual patterns are highly variable.
 
-[Figure 3.5 AI pipeline: detection, embedding memory, extraction, fallback]
+[[VISUAL_SLOT: FIG_3_5_AI_PIPELINE]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_3_5_ai_pipeline.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/legacy_reportfinal_img-006.jpg]]
+[[VISUAL_CAPTION: Figure 3.5 AI pipeline: detection, embedding memory, extraction, fallback]]
 
 [Table 3.3 AI/ML stages, inputs, outputs, confidence signals, fallback rules]
 
@@ -201,7 +216,10 @@ Benefits include:
 
 This cache strategy is intentionally short-lived to balance freshness and efficiency.
 
-[Figure 3.6 Multi-source collection, normalization, matching, and ranking flow]
+[[VISUAL_SLOT: FIG_3_6_OFFER_COLLECTION_RANKING]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_3_6_offer_collection_ranking.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/compare_pipeline.png]]
+[[VISUAL_CAPTION: Figure 3.6 Multi-source collection, normalization, matching, and ranking flow]]
 
 [Table 3.4 Example normalization and quantity-bucket transformation]
 
@@ -270,7 +288,10 @@ Local-first modelling was selected for four reasons:
 
 The trade-off is absence of automatic cross-device sync in the current phase. However, the schema and module boundaries are suitable for later addition of optional cloud sync without disrupting current user flows.
 
-[Figure 3.7 Local entity model and subsystem read/write links]
+[[VISUAL_SLOT: FIG_3_7_LOCAL_DATA_MODEL]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_3_7_local_data_model_er.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/data_model.png]]
+[[VISUAL_CAPTION: Figure 3.7 Local entity model and subsystem read/write links]]
 
 [Table 3.6 Entity definitions, key fields, and ownership modules]
 
@@ -324,7 +345,10 @@ This combination gives better confidence than relying on one testing level.
 
 [Table 3.7 Tool/technique selection, alternatives considered, and reasons]
 
-[Figure 3.8 Tooling map across scan, compare, storage, and reminder subsystems]
+[[VISUAL_SLOT: FIG_3_8_TOOLING_MAP]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_3_8_tooling_map.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/testing_pyramid.png]]
+[[VISUAL_CAPTION: Figure 3.8 Tooling map across scan, compare, storage, and reminder subsystems]]
 
 The selected stack is therefore not only technically capable but also aligned with long-term maintainability and constrained project economics.
 
@@ -380,7 +404,10 @@ Risk handling in GROCO can be summarized as **degrade gracefully, expose uncerta
 
 [Table 3.8 Risk matrix: probability, impact, mitigation, residual risk]
 
-[Figure 3.9 Failure-containment strategy and graceful degradation paths]
+[[VISUAL_SLOT: FIG_3_9_FAILURE_CONTAINMENT]]
+[[VISUAL_MERMAID_FILE: visual-assets/mermaid/fig_3_9_failure_containment.mmd]]
+[[VISUAL_IMAGE_FILE: visual-assets/images/legacy_reportfinal_img-007.jpg]]
+[[VISUAL_CAPTION: Figure 3.9 Failure-containment strategy and graceful degradation paths]]
 
 This risk-aware design mindset is essential for practical consumer AI systems, where real-world variability is the norm and usability under imperfect conditions is a core quality attribute.
 

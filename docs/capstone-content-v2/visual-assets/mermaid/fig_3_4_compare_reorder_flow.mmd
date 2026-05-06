@@ -1,0 +1,9 @@
+flowchart TD
+  Q1[Item Selected from Inventory] --> Q2[Read Saved Location]
+  Q2 --> Q3[Create Compare Request]
+  Q3 --> Q4[Parallel Source Fetch]
+  Q4 --> Q5[Normalize Offers]
+  Q5 --> Q6[Quantity-Aware Clustering]
+  Q6 --> Q7[Rank by Relevance + Price]
+  Q7 --> Q8[Display Offer Cards]
+  Q8 --> Q9[Open Provider Link for Reorder]

@@ -1,0 +1,15 @@
+flowchart TB
+  E1[Android Device/Emulator]
+  E2[Kotlin + Compose App]
+  E3[Local ObjectBox Storage]
+  E4[Network Access for Compare]
+  E5[Gemini Inference Calls]
+  E6[WorkManager Background Tasks]
+  E7[Test Stack: Gradle + Maestro]
+
+  E1 --> E2
+  E2 --> E3
+  E2 --> E4
+  E2 --> E5
+  E2 --> E6
+  E2 --> E7

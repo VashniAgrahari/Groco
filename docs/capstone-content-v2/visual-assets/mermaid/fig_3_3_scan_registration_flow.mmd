@@ -1,0 +1,12 @@
+flowchart TD
+  S0[Open Scan Screen] --> S1[Live Detection Overlay]
+  S1 --> S2[Capture Front Image]
+  S2 --> S3[Generate Embedding]
+  S3 --> S4{Known Item Match?}
+  S4 -- Yes --> S5[Reuse Existing Title]
+  S4 -- No --> S6[LLM Title Extraction]
+  S1 --> S7[Capture Back/Label Image]
+  S7 --> S8[Expiry Extraction]
+  S5 --> S9[Save Item Record]
+  S6 --> S9
+  S8 --> S9
