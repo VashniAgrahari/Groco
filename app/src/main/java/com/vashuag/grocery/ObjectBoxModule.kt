@@ -1,6 +1,7 @@
 package com.vashuag.grocery
 
 import android.content.Context
+import com.vashuag.grocery.data.entity.ComparisonHistory
 import com.vashuag.grocery.data.entity.GroceryItem
 import dagger.Module
 import dagger.Provides
@@ -25,6 +26,12 @@ object ObjectBoxModule {
     @Singleton
     fun provideGroceryBox(store: BoxStore): Box<GroceryItem> {
         return store.boxFor(GroceryItem::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideComparisonHistoryBox(store: BoxStore): Box<ComparisonHistory> {
+        return store.boxFor(ComparisonHistory::class.java)
     }
 
 }
