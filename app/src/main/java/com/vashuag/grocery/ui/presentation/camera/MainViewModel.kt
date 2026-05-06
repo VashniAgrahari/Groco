@@ -2,6 +2,7 @@ package com.vashuag.grocery.ui.presentation.camera
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Rect
 import android.util.Log
@@ -217,7 +218,7 @@ class MainViewModel @Inject constructor(
         val executor = ContextCompat.getMainExecutor(context)
         val analyzer = ObjectDetectionAnalyzer { detectedObjectImages ->
             val detectedObjectsWithEmbeddings = detectedObjectImages.map { detectedObjectImage ->
-                val embeddingList = emptyList<Float>()
+                val embeddingList = generateBitmapEmbedding(detectedObjectImage.bitmap).toList()
                 Log.d("ObjectDetectionAnalyzer", "createImageAnalysisUseCase: $embeddingList")
                 Log.d(
                     "ObjectDetectionAnalyzer", "Generated embeddings of size: ${embeddingList.size}"
@@ -256,6 +257,35 @@ class MainViewModel @Inject constructor(
                     shouldStoreNextFrame = false
                 }
             }
+    }
+
+    private fun generateBitmapEmbedding(bitmap: Bitmap): FloatArray {
+        val targetWidth = 40
+        val targetHeight = 32
+        val scaled = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true)
+        val pixels = IntArray(targetWidth * targetHeight)
+        scaled.getPixels(
+            pixels,
+            0,
+            targetWidth,
+            0,
+            0,
+            targetWidth,
+            targetHeight
+        )
+
+        val embedding = FloatArray(targetWidth * targetHeight)
+        var index = 0
+        while (index < pixels.size) {
+            val pixel = pixels[index]
+            val r = Color.red(pixel)
+            val g = Color.green(pixel)
+            val b = Color.blue(pixel)
+            val grayscale = (0.299f * r) + (0.587f * g) + (0.114f * b)
+            embedding[index] = grayscale / 255f
+            index += 1
+        }
+        return embedding
     }
 
     fun captureCurrentImage() {
