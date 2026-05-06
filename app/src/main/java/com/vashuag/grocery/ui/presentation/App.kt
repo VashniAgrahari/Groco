@@ -29,6 +29,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import com.vashuag.grocery.feature.compare.ui.CompareScreen
 import com.vashuag.grocery.ui.presentation.camera.ScanningScreen
 import com.vashuag.grocery.ui.presentation.home.HomeScreen
 import com.vashuag.grocery.ui.theme.GroceryTheme
@@ -75,13 +77,26 @@ fun App() {
                             LaunchedEffect(Unit) {
                                 route.value = AppRoutes.HomeScreen
                             }
-                            HomeScreen()
+                            HomeScreen(
+                                onCompareClick = { item ->
+                                    navController.navigate(
+                                        AppRoutes.CompareItemScreen(item.title)
+                                    )
+                                }
+                            )
                         }
                         composable<AppRoutes.ScanItemsScreen> {
                             LaunchedEffect(Unit) {
                                 route.value = AppRoutes.ScanItemsScreen
                             }
                             ScanningScreen()
+                        }
+                        composable<AppRoutes.CompareItemScreen> { backStackEntry ->
+                            val compareRoute = backStackEntry.toRoute<AppRoutes.CompareItemScreen>()
+                            LaunchedEffect(Unit) {
+                                route.value = compareRoute
+                            }
+                            CompareScreen(initialQuery = compareRoute.itemName)
                         }
                     }
                 }
@@ -95,6 +110,7 @@ fun App() {
 fun TopBarTitle(route: MutableState<AppRoutes?>) {
     Text(
         text = when (route.value) {
+            is AppRoutes.CompareItemScreen -> "Compare Prices"
 
             else -> {
                 "Groco"
@@ -122,6 +138,13 @@ fun TopBarNavigationIcon(
 ) {
     when (route.value) {
         is AppRoutes.ScanItemsScreen -> {
+            IconButton({
+                navController.popBackStack()
+            }) {
+                Icon(Icons.AutoMirrored.Default.ArrowBack, "Back")
+            }
+        }
+        is AppRoutes.CompareItemScreen -> {
             IconButton({
                 navController.popBackStack()
             }) {

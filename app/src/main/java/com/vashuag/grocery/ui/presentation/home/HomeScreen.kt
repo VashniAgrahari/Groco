@@ -16,14 +16,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -48,7 +51,8 @@ import java.util.Locale
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    onCompareClick: (GroceryItem) -> Unit = {}
 ) {
     val groceryItems by viewModel.groceryItems.collectAsState()
 
@@ -129,7 +133,10 @@ fun HomeScreen(
                 items(groceryItems, key = { it.id }) { item ->
                     GroceryItemCard(
                         item = item,
-                        onDeleteClick = { viewModel.deleteGroceryItem(item) }
+                        onDeleteClick = { viewModel.deleteGroceryItem(item) },
+                        onIncrementQuantity = { viewModel.incrementQuantity(item.id) },
+                        onDecrementQuantity = { viewModel.decrementQuantity(item.id) },
+                        onCompareClick = { onCompareClick(item) }
                     )
                 }
             }
@@ -140,7 +147,10 @@ fun HomeScreen(
 @Composable
 fun GroceryItemCard(
     item: GroceryItem,
-    onDeleteClick: () -> Unit
+    onDeleteClick: () -> Unit,
+    onIncrementQuantity: () -> Unit,
+    onDecrementQuantity: () -> Unit,
+    onCompareClick: () -> Unit
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -198,6 +208,52 @@ fun GroceryItemCard(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+
+                Text(
+                    text = if (item.quantity <= item.lowStockThreshold) {
+                        "Low stock"
+                    } else {
+                        "In stock"
+                    },
+                    style = MaterialTheme.typography.bodySmall,
+                    color = if (item.quantity <= item.lowStockThreshold) {
+                        MaterialTheme.colorScheme.error
+                    } else {
+                        MaterialTheme.colorScheme.primary
+                    }
+                )
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconButton(
+                        onClick = onDecrementQuantity
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Remove,
+                            contentDescription = "Decrease quantity"
+                        )
+                    }
+                    Text(
+                        text = "Qty ${formatQuantity(item.quantity)} ${item.unit}",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    IconButton(
+                        onClick = onIncrementQuantity
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Increase quantity"
+                        )
+                    }
+                }
+
+                OutlinedButton(
+                    onClick = onCompareClick
+                ) {
+                    Text("Compare Prices")
+                }
             }
 
             // Delete button
@@ -218,4 +274,12 @@ fun GroceryItemCard(
 private fun formatDate(timestamp: Long): String {
     val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
     return sdf.format(Date(timestamp))
+}
+
+private fun formatQuantity(quantity: Double): String {
+    return if (quantity % 1.0 == 0.0) {
+        quantity.toInt().toString()
+    } else {
+        String.format(Locale.getDefault(), "%.1f", quantity)
+    }
 }

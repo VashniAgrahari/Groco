@@ -2,3 +2,4 @@ appId: com.vashuag.grocery
 ---
 - runFlow: inventory_seed_and_cleanup.yaml
 - runFlow: navigation_scan_smoke.yaml
+- runFlow: compare_prices_flow.yaml

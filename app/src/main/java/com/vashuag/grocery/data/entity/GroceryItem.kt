@@ -10,5 +10,9 @@ data class GroceryItem(
     var title: String = "",
     @HnswIndex(dimensions = 1280) var embeddings: FloatArray? = null,
     var imagePath: String = "",
-    var expiryDateMs: Long = System.currentTimeMillis()
+    var expiryDateMs: Long = System.currentTimeMillis(),
+    var quantity: Double = 1.0,
+    var unit: String = "unit",
+    var lowStockThreshold: Double = 1.0,
+    var remindBeforeDays: Int = 2
 )

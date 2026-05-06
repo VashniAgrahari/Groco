@@ -365,7 +365,11 @@ class MainViewModel @Inject constructor(
                 title = title,
                 embeddings = groceryItem.imageEmbeddings.toFloatArray(),
                 imagePath = path,
-                expiryDateMs = expiryDateMs
+                expiryDateMs = expiryDateMs,
+                quantity = 1.0,
+                unit = "unit",
+                lowStockThreshold = 1.0,
+                remindBeforeDays = 2
             )
         )
     }

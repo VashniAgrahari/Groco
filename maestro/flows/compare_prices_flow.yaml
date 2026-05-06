@@ -1,0 +1,16 @@
+appId: com.vashuag.grocery
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+- assertVisible: "My Grocery Items"
+- tapOn: "Load Demo Data"
+- tapOn: "Compare Prices"
+- assertVisible: "Compare Prices"
+- tapOn:
+    id: "compare_search_button"
+- assertVisible:
+    id: "compare_results_header"
+- pressKey: back
+- assertVisible: "My Grocery Items"

@@ -55,6 +55,24 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun incrementQuantity(itemId: Long) {
+        viewModelScope.launch {
+            val existing = groceryBox.get(itemId) ?: return@launch
+            existing.quantity = (existing.quantity + 1.0).coerceAtMost(999.0)
+            groceryBox.put(existing)
+            refreshGroceryItems()
+        }
+    }
+
+    fun decrementQuantity(itemId: Long) {
+        viewModelScope.launch {
+            val existing = groceryBox.get(itemId) ?: return@launch
+            existing.quantity = (existing.quantity - 1.0).coerceAtLeast(0.0)
+            groceryBox.put(existing)
+            refreshGroceryItems()
+        }
+    }
+
     fun clearAllItems() {
         viewModelScope.launch {
             groceryBox.removeAll()
