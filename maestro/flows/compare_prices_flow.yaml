@@ -11,10 +11,9 @@ appId: com.vashuag.grocery
 - tapOn: "Load Demo Data"
 - tapOn:
     id: "compare_item_button"
-- assertVisible: "Compare Prices"
-- tapOn:
-    id: "compare_search_button"
+- assertVisible: "Item name"
+- tapOn: "Compare"
 - assertVisible:
-    id: "compare_results_header"
+    text: "Results for .*"
 - pressKey: back
 - assertVisible: "My Grocery Items"

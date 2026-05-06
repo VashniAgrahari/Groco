@@ -1,0 +1,37 @@
+appId: com.vashuag.grocery
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+- tapOn:
+    text: "Wait"
+    optional: true
+- assertVisible: "My Grocery Items"
+- tapOn:
+    id: "topbar_location_settings_button"
+- assertVisible:
+    id: "location_city_input"
+- tapOn:
+    id: "location_city_input"
+- eraseText
+- inputText: "Bengaluru"
+- tapOn:
+    id: "location_area_input"
+- eraseText
+- inputText: "Koramangala"
+- tapOn:
+    id: "location_pincode_input"
+- eraseText
+- inputText: "560034"
+- tapOn:
+    id: "location_max_results_input"
+- eraseText
+- inputText: "6"
+- tapOn:
+    id: "location_save_button"
+- assertVisible:
+    id: "location_saved_text"
+- tapOn:
+    id: "topbar_back_button"
+- assertVisible: "My Grocery Items"
