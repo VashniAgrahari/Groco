@@ -228,7 +228,8 @@ fun GroceryItemCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(
-                        onClick = onDecrementQuantity
+                        onClick = onDecrementQuantity,
+                        modifier = Modifier.testTag("quantity_decrease_button")
                     ) {
                         Icon(
                             imageVector = Icons.Default.Remove,
@@ -240,7 +241,8 @@ fun GroceryItemCard(
                         style = MaterialTheme.typography.bodyMedium
                     )
                     IconButton(
-                        onClick = onIncrementQuantity
+                        onClick = onIncrementQuantity,
+                        modifier = Modifier.testTag("quantity_increase_button")
                     ) {
                         Icon(
                             imageVector = Icons.Default.Add,
@@ -250,7 +252,8 @@ fun GroceryItemCard(
                 }
 
                 OutlinedButton(
-                    onClick = onCompareClick
+                    onClick = onCompareClick,
+                    modifier = Modifier.testTag("compare_item_button")
                 ) {
                     Text("Compare Prices")
                 }

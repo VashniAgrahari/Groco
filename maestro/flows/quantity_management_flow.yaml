@@ -1,0 +1,15 @@
+appId: com.vashuag.grocery
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+- assertVisible: "My Grocery Items"
+- tapOn: "Load Demo Data"
+- assertVisible: "Qty 1 unit"
+- tapOn:
+    id: "quantity_increase_button"
+- assertVisible: "Qty 2 unit"
+- tapOn:
+    id: "quantity_decrease_button"
+- assertVisible: "Qty 1 unit"
