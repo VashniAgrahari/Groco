@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
@@ -53,5 +54,40 @@ class HomeViewModel @Inject constructor(
             refreshGroceryItems()
         }
     }
-}
 
+    fun clearAllItems() {
+        viewModelScope.launch {
+            groceryBox.removeAll()
+            refreshGroceryItems()
+        }
+    }
+
+    fun seedDemoItems() {
+        viewModelScope.launch {
+            val soonExpiry = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, 2) }.timeInMillis
+            val mediumExpiry = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, 7) }.timeInMillis
+            val longExpiry = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, 20) }.timeInMillis
+
+            val demoItems = listOf(
+                GroceryItem(
+                    title = "Amul Gold Milk",
+                    imagePath = "",
+                    expiryDateMs = soonExpiry
+                ),
+                GroceryItem(
+                    title = "Fortune Basmati Rice",
+                    imagePath = "",
+                    expiryDateMs = mediumExpiry
+                ),
+                GroceryItem(
+                    title = "Whole Wheat Bread",
+                    imagePath = "",
+                    expiryDateMs = longExpiry
+                )
+            )
+
+            groceryBox.put(*demoItems.toTypedArray())
+            refreshGroceryItems()
+        }
+    }
+}

@@ -1,0 +1,13 @@
+appId: com.vashuag.grocery
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+- assertVisible: "My Grocery Items"
+- tapOn:
+    id: "home_add_item_fab"
+- assertVisible:
+    id: "scan_step_label"
+- pressKey: back
+- assertVisible: "My Grocery Items"

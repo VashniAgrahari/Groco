@@ -22,6 +22,9 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -43,8 +46,12 @@ fun App() {
             if (route.value == AppRoutes.HomeScreen) {
                 FloatingActionButton(onClick = {
                     navController.navigate(AppRoutes.ScanItemsScreen)
-                }) {
-                    Icon(Icons.Filled.Add, "Add")
+                }, modifier = Modifier.testTag("home_add_item_fab")
+                ) {
+                    Icon(
+                        Icons.Filled.Add,
+                        contentDescription = "Add Item"
+                    )
                 }
             }
         }, topBar = {
@@ -55,6 +62,7 @@ fun App() {
         }, snackbarHost = { SnackbarHost(hostState = snackBarHostState) }) { innerPadding ->
             Column(Modifier
                 .fillMaxSize()
+                .semantics { testTagsAsResourceId = true }
                 .padding(innerPadding)) {
                 PermissionsView {
                     NavHost(

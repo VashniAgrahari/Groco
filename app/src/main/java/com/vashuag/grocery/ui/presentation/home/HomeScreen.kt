@@ -33,10 +33,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import android.graphics.BitmapFactory
+import com.vashuag.grocery.BuildConfig
 import com.vashuag.grocery.data.entity.GroceryItem
 import java.io.File
 import java.text.SimpleDateFormat
@@ -65,10 +67,12 @@ fun HomeScreen(
             Text(
                 text = "My Grocery Items",
                 style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.testTag("home_title")
             )
             FilledTonalButton(
-                onClick = { viewModel.refreshGroceryItems() }
+                onClick = { viewModel.refreshGroceryItems() },
+                modifier = Modifier.testTag("home_refresh_button")
             ) {
                 Icon(
                     imageVector = Icons.Default.Refresh,
@@ -77,6 +81,32 @@ fun HomeScreen(
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text("Refresh")
+            }
+        }
+
+        if (BuildConfig.DEBUG) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                FilledTonalButton(
+                    onClick = { viewModel.seedDemoItems() },
+                    modifier = Modifier
+                        .weight(1f)
+                        .testTag("debug_seed_demo_items")
+                ) {
+                    Text("Load Demo Data")
+                }
+                FilledTonalButton(
+                    onClick = { viewModel.clearAllItems() },
+                    modifier = Modifier
+                        .weight(1f)
+                        .testTag("debug_clear_items")
+                ) {
+                    Text("Clear All")
+                }
             }
         }
 
@@ -189,4 +219,3 @@ private fun formatDate(timestamp: Long): String {
     val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
     return sdf.format(Date(timestamp))
 }
-

@@ -35,6 +35,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -90,6 +91,7 @@ fun ScanningScreen(
                                 .padding(6.dp)
                                 .clip(CircleShape)
                                 .background(Color.Red)
+                                .testTag("scan_capture_button")
                                 .clickable {
                                     viewModel.captureCurrentImage()
                                 })
@@ -97,7 +99,10 @@ fun ScanningScreen(
                     Column(
                         modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.End
                     ) {
-                        Text(if (state.currentStep == ScanStep.FRONT_IMAGE) "Front" else "Expiry Date")
+                        Text(
+                            if (state.currentStep == ScanStep.FRONT_IMAGE) "Front" else "Expiry Date",
+                            modifier = Modifier.testTag("scan_step_label")
+                        )
                         Spacer(modifier = Modifier.weight(1f))
                         Row(
                             Modifier.fillMaxWidth()
@@ -105,7 +110,7 @@ fun ScanningScreen(
                             Spacer(Modifier.weight(1f))
                             Button(onClick = {
                                 viewModel.stopScanning()
-                            }, enabled = state.currentStep == ScanStep.FRONT_IMAGE) {
+                            }, enabled = state.currentStep == ScanStep.FRONT_IMAGE, modifier = Modifier.testTag("scan_complete_button")) {
                                 Text("Complete Scan")
                             }
                         }

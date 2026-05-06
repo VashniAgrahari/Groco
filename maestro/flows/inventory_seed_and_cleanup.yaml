@@ -1,0 +1,15 @@
+appId: com.vashuag.grocery
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+- assertVisible: "My Grocery Items"
+- tapOn: "Load Demo Data"
+- assertVisible: "Amul Gold Milk"
+- assertVisible: "Fortune Basmati Rice"
+- assertVisible: "Whole Wheat Bread"
+- tapOn: "Refresh"
+- assertVisible: "Amul Gold Milk"
+- tapOn: "Clear All"
+- assertVisible: "No grocery items yet"
