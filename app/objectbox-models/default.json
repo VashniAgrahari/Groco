@@ -97,9 +97,58 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:6533700433320142603",
+      "lastPropertyId": "8:6311425359914788039",
+      "name": "LocationSettings",
+      "properties": [
+        {
+          "id": "1:8551483712233620048",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3578397616604172817",
+          "name": "city",
+          "type": 9
+        },
+        {
+          "id": "3:395196334054008511",
+          "name": "area",
+          "type": 9
+        },
+        {
+          "id": "4:1645039413821852816",
+          "name": "pincode",
+          "type": 9
+        },
+        {
+          "id": "5:6091225418108617461",
+          "name": "latitude",
+          "type": 8
+        },
+        {
+          "id": "6:6941879483369769968",
+          "name": "longitude",
+          "type": 8
+        },
+        {
+          "id": "7:4812602101963861838",
+          "name": "hasCoordinates",
+          "type": 1
+        },
+        {
+          "id": "8:6311425359914788039",
+          "name": "maxResultsPerSite",
+          "type": 5
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:66684721158158537",
+  "lastEntityId": "3:6533700433320142603",
   "lastIndexId": "1:7722866192137266474",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

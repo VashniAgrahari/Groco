@@ -3,6 +3,7 @@ package com.vashuag.grocery
 import android.content.Context
 import com.vashuag.grocery.data.entity.ComparisonHistory
 import com.vashuag.grocery.data.entity.GroceryItem
+import com.vashuag.grocery.data.entity.LocationSettings
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,6 +33,12 @@ object ObjectBoxModule {
     @Singleton
     fun provideComparisonHistoryBox(store: BoxStore): Box<ComparisonHistory> {
         return store.boxFor(ComparisonHistory::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationSettingsBox(store: BoxStore): Box<LocationSettings> {
+        return store.boxFor(LocationSettings::class.java)
     }
 
 }

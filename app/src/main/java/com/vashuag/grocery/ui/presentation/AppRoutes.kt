@@ -12,6 +12,9 @@ sealed class AppRoutes() {
     data object ScanItemsScreen : AppRoutes()
 
     @Serializable
+    data object LocationSettingsScreen : AppRoutes()
+
+    @Serializable
     data class CompareItemScreen(
         val itemName: String
     ) : AppRoutes()

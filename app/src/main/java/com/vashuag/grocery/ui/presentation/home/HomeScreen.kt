@@ -22,15 +22,19 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,22 +47,25 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import android.graphics.BitmapFactory
 import android.content.pm.ApplicationInfo
 import com.vashuag.grocery.data.entity.GroceryItem
+import com.vashuag.grocery.feature.compare.ui.CompareScreen
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
-    onCompareClick: (GroceryItem) -> Unit = {}
+    onOpenLocationSettings: () -> Unit = {}
 ) {
     val groceryItems by viewModel.groceryItems.collectAsState()
     val isDebuggable = (
         androidx.compose.ui.platform.LocalContext.current.applicationInfo.flags and
             ApplicationInfo.FLAG_DEBUGGABLE
         ) != 0
+    val compareItemState = remember { mutableStateOf<GroceryItem?>(null) }
 
     Column(
         modifier = modifier
@@ -140,10 +147,27 @@ fun HomeScreen(
                         onDeleteClick = { viewModel.deleteGroceryItem(item) },
                         onIncrementQuantity = { viewModel.incrementQuantity(item.id) },
                         onDecrementQuantity = { viewModel.decrementQuantity(item.id) },
-                        onCompareClick = { onCompareClick(item) }
+                        onCompareClick = { compareItemState.value = item }
                     )
                 }
             }
+        }
+    }
+
+    compareItemState.value?.let { selectedItem ->
+        ModalBottomSheet(
+            onDismissRequest = { compareItemState.value = null },
+            modifier = Modifier.testTag("compare_bottom_sheet")
+        ) {
+            CompareScreen(
+                initialQuery = selectedItem.title,
+                showTitle = false,
+                autoCompare = true,
+                onOpenLocationSettings = {
+                    compareItemState.value = null
+                    onOpenLocationSettings()
+                }
+            )
         }
     }
 }

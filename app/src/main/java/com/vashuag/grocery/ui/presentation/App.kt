@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -33,6 +34,7 @@ import androidx.navigation.toRoute
 import com.vashuag.grocery.feature.compare.ui.CompareScreen
 import com.vashuag.grocery.ui.presentation.camera.ScanningScreen
 import com.vashuag.grocery.ui.presentation.home.HomeScreen
+import com.vashuag.grocery.ui.presentation.settings.LocationSettingsScreen
 import com.vashuag.grocery.ui.theme.GroceryTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,7 +46,9 @@ fun App() {
         val snackBarHostState = remember {
             SnackbarHostState()
         }
-        Scaffold(modifier = Modifier.fillMaxSize(), floatingActionButton = {
+        Scaffold(modifier = Modifier
+            .fillMaxSize()
+            .semantics { testTagsAsResourceId = true }, floatingActionButton = {
             if (route.value == AppRoutes.HomeScreen) {
                 FloatingActionButton(onClick = {
                     navController.navigate(AppRoutes.ScanItemsScreen)
@@ -78,9 +82,9 @@ fun App() {
                                 route.value = AppRoutes.HomeScreen
                             }
                             HomeScreen(
-                                onCompareClick = { item ->
+                                onOpenLocationSettings = {
                                     navController.navigate(
-                                        AppRoutes.CompareItemScreen(item.title)
+                                        AppRoutes.LocationSettingsScreen
                                     )
                                 }
                             )
@@ -96,7 +100,19 @@ fun App() {
                             LaunchedEffect(Unit) {
                                 route.value = compareRoute
                             }
-                            CompareScreen(initialQuery = compareRoute.itemName)
+                            CompareScreen(
+                                initialQuery = compareRoute.itemName,
+                                autoCompare = false,
+                                onOpenLocationSettings = {
+                                    navController.navigate(AppRoutes.LocationSettingsScreen)
+                                }
+                            )
+                        }
+                        composable<AppRoutes.LocationSettingsScreen> {
+                            LaunchedEffect(Unit) {
+                                route.value = AppRoutes.LocationSettingsScreen
+                            }
+                            LocationSettingsScreen()
                         }
                     }
                 }
@@ -111,6 +127,7 @@ fun TopBarTitle(route: MutableState<AppRoutes?>) {
     Text(
         text = when (route.value) {
             is AppRoutes.CompareItemScreen -> "Compare Prices"
+            is AppRoutes.LocationSettingsScreen -> "Location Settings"
 
             else -> {
                 "Groco"
@@ -124,6 +141,13 @@ fun TopBarActions(
     route: MutableState<AppRoutes?>, navController: NavHostController
 ) {
     when (route.value) {
+        AppRoutes.HomeScreen -> {
+            IconButton({
+                navController.navigate(AppRoutes.LocationSettingsScreen)
+            }, modifier = Modifier.testTag("topbar_location_settings_button")) {
+                Icon(Icons.Filled.Settings, "Location Settings")
+            }
+        }
 
         else -> {
 
@@ -140,14 +164,21 @@ fun TopBarNavigationIcon(
         is AppRoutes.ScanItemsScreen -> {
             IconButton({
                 navController.popBackStack()
-            }) {
+            }, modifier = Modifier.testTag("topbar_back_button")) {
                 Icon(Icons.AutoMirrored.Default.ArrowBack, "Back")
             }
         }
         is AppRoutes.CompareItemScreen -> {
             IconButton({
                 navController.popBackStack()
-            }) {
+            }, modifier = Modifier.testTag("topbar_back_button")) {
+                Icon(Icons.AutoMirrored.Default.ArrowBack, "Back")
+            }
+        }
+        AppRoutes.LocationSettingsScreen -> {
+            IconButton({
+                navController.popBackStack()
+            }, modifier = Modifier.testTag("topbar_back_button")) {
                 Icon(Icons.AutoMirrored.Default.ArrowBack, "Back")
             }
         }

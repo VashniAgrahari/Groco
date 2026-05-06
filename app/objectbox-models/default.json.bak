@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:9011421881637265867",
-      "lastPropertyId": "5:624617092602717567",
+      "lastPropertyId": "9:6778128597556868913",
       "name": "GroceryItem",
       "properties": [
         {
@@ -35,12 +35,71 @@
           "id": "5:624617092602717567",
           "name": "expiryDateMs",
           "type": 6
+        },
+        {
+          "id": "6:1767718604649823016",
+          "name": "quantity",
+          "type": 8
+        },
+        {
+          "id": "7:7933111760132628473",
+          "name": "unit",
+          "type": 9
+        },
+        {
+          "id": "8:4694429429502352838",
+          "name": "lowStockThreshold",
+          "type": 8
+        },
+        {
+          "id": "9:6778128597556868913",
+          "name": "remindBeforeDays",
+          "type": 5
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:66684721158158537",
+      "lastPropertyId": "6:4121064121791578269",
+      "name": "ComparisonHistory",
+      "properties": [
+        {
+          "id": "1:2847457026572949150",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6029758624656131504",
+          "name": "fingerprint",
+          "type": 9
+        },
+        {
+          "id": "3:5026831554183200515",
+          "name": "queryText",
+          "type": 9
+        },
+        {
+          "id": "4:2835427827472357187",
+          "name": "locationJson",
+          "type": 9
+        },
+        {
+          "id": "5:3262632825020435088",
+          "name": "responseJson",
+          "type": 9
+        },
+        {
+          "id": "6:4121064121791578269",
+          "name": "createdAtMs",
+          "type": 6
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "1:9011421881637265867",
+  "lastEntityId": "2:66684721158158537",
   "lastIndexId": "1:7722866192137266474",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
