@@ -1,6 +1,7 @@
 package com.vashuag.grocery.ui.presentation
 
 import android.Manifest
+import android.os.Build
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,10 +21,13 @@ fun PermissionsView(
     content: @Composable () -> Unit
 ) {
     val permissionState = rememberMultiplePermissionsState(
-        permissions = listOf(
-            Manifest.permission.CAMERA,
-            Manifest.permission.RECORD_AUDIO
-        )
+        permissions = buildList {
+            add(Manifest.permission.CAMERA)
+            add(Manifest.permission.RECORD_AUDIO)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                add(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
     )
 
     when {
@@ -39,7 +43,7 @@ fun PermissionsView(
                 horizontalAlignment = Alignment.Companion.CenterHorizontally
             ) {
                 Text(
-                    text = "Camera and audio permissions are required for this feature to work properly.",
+                    text = "Camera, audio, and notification permissions are required for full app functionality.",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.Companion.padding(bottom = 16.dp)
                 )
@@ -59,7 +63,7 @@ fun PermissionsView(
                 horizontalAlignment = Alignment.Companion.CenterHorizontally
             ) {
                 Text(
-                    text = "This app requires camera and audio permissions to function.",
+                    text = "This app requires camera, audio, and notification permissions to function properly.",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.Companion.padding(bottom = 16.dp)
                 )
