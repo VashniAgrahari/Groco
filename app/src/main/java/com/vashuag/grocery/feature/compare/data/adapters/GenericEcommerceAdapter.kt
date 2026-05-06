@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets
 import kotlin.math.round
 
 abstract class GenericEcommerceAdapter(
-    private val httpClient: HttpClient
+    protected val httpClient: HttpClient
 ) : PriceSourceAdapter {
 
     abstract val searchUrlTemplate: String
