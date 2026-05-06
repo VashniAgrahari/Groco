@@ -128,6 +128,20 @@ flowchart TD
 ### Phase 5
 - E2E hardening + UI polish + release checklist.
 
+## 6.1 Current Implementation Status
+- Completed:
+  - Kotlin compare domain models, quantity parsing, fuzzy matcher.
+  - Android adapter abstraction with multi-site generic scraper adapters.
+  - Local compare history cache via ObjectBox (`ComparisonHistory`).
+  - Home inventory quantity controls (+/-), low-stock indicator.
+  - Compare screen with in-app provider offer list and reorder deep links.
+  - Expiry reminder scheduling and notification worker using WorkManager.
+  - Maestro E2E suites for inventory seed/cleanup, navigation smoke, quantity management, and compare flow.
+- Pending for production-hardening:
+  - Real-device execution of all Maestro flows.
+  - Emulator/device instrumentation test run.
+  - Additional parser robustness fixtures per site.
+
 ## 7. Risk & Mitigation
 - Site anti-bot variability:
   - keep per-site graceful failure and partial results.

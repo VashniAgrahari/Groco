@@ -64,6 +64,8 @@
   - `maestro/flows/full_e2e_suite.yaml`
   - `maestro/flows/inventory_seed_and_cleanup.yaml`
   - `maestro/flows/navigation_scan_smoke.yaml`
+  - `maestro/flows/quantity_management_flow.yaml`
+  - `maestro/flows/compare_prices_flow.yaml`
 - Runner script:
   - `scripts/run-maestro-e2e.sh`
 
