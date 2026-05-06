@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:9011421881637265867",
-      "lastPropertyId": "2:2770008603255354393",
+      "lastPropertyId": "5:624617092602717567",
       "name": "GroceryItem",
       "properties": [
         {
@@ -18,13 +18,30 @@
           "id": "2:2770008603255354393",
           "name": "title",
           "type": 9
+        },
+        {
+          "id": "3:6193475781834759537",
+          "name": "embeddings",
+          "indexId": "1:7722866192137266474",
+          "type": 28,
+          "flags": 8
+        },
+        {
+          "id": "4:2724526620994128845",
+          "name": "imagePath",
+          "type": 9
+        },
+        {
+          "id": "5:624617092602717567",
+          "name": "expiryDateMs",
+          "type": 6
         }
       ],
       "relations": []
     }
   ],
   "lastEntityId": "1:9011421881637265867",
-  "lastIndexId": "0:0",
+  "lastIndexId": "1:7722866192137266474",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

@@ -1,8 +1,9 @@
 package com.vashuag.grocery.feature.compare.ui
 
+import android.content.Context
+import android.content.pm.ApplicationInfo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vashuag.grocery.BuildConfig
 import com.vashuag.grocery.feature.compare.data.PriceComparisonRepository
 import com.vashuag.grocery.feature.compare.domain.CompareRequest
 import com.vashuag.grocery.feature.compare.domain.CompareResult
@@ -10,6 +11,7 @@ import com.vashuag.grocery.feature.compare.domain.MatchedItem
 import com.vashuag.grocery.feature.compare.domain.Offer
 import com.vashuag.grocery.feature.compare.domain.UserLocation
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,11 +21,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CompareViewModel @Inject constructor(
+    @ApplicationContext private val appContext: Context,
     private val repository: PriceComparisonRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CompareUiState())
     val uiState: StateFlow<CompareUiState> = _uiState.asStateFlow()
+    private val isDebuggable: Boolean = (
+        appContext.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE
+        ) != 0
 
     private var initializedQuery = false
 
@@ -95,7 +101,7 @@ class CompareViewModel @Inject constructor(
                     it.copy(isLoading = false, error = null, result = compareResult)
                 }
             }.onFailure { throwable ->
-                if (BuildConfig.DEBUG) {
+                if (isDebuggable) {
                     _uiState.update {
                         it.copy(
                             isLoading = false,

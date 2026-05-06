@@ -24,11 +24,6 @@ import com.google.firebase.Firebase
 import com.google.firebase.ai.ai
 import com.google.firebase.ai.type.GenerativeBackend
 import com.google.firebase.ai.type.content
-import com.google.mediapipe.framework.image.BitmapImageBuilder
-import com.google.mediapipe.tasks.core.BaseOptions
-import com.google.mediapipe.tasks.vision.core.RunningMode
-import com.google.mediapipe.tasks.vision.imageembedder.ImageEmbedder
-import com.google.mediapipe.tasks.vision.imageembedder.ImageEmbedder.ImageEmbedderOptions
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.objects.ObjectDetection
 import com.google.mlkit.vision.objects.ObjectDetector
@@ -219,22 +214,10 @@ class MainViewModel @Inject constructor(
     }
 
     private fun createImageAnalysisUseCase(): ImageAnalysis {
-        val options = ImageEmbedderOptions.builder().setBaseOptions(
-            BaseOptions.builder().setModelAssetPath("mobilenet_v3_large.tflite").build()
-        ).setRunningMode(RunningMode.IMAGE).build()
-        val imageEmbedder = ImageEmbedder.createFromOptions(context, options)
-
         val executor = ContextCompat.getMainExecutor(context)
         val analyzer = ObjectDetectionAnalyzer { detectedObjectImages ->
             val detectedObjectsWithEmbeddings = detectedObjectImages.map { detectedObjectImage ->
-                val mpImage = BitmapImageBuilder(detectedObjectImage.bitmap).build()
-                val embedderResult = imageEmbedder.embed(mpImage)
-                val embeddings = embedderResult.embeddingResult().embeddings()
-                val embeddingList = if (embeddings.isNotEmpty()) {
-                    embeddings[0].floatEmbedding().toList()
-                } else {
-                    emptyList()
-                }
+                val embeddingList = emptyList<Float>()
                 Log.d("ObjectDetectionAnalyzer", "createImageAnalysisUseCase: $embeddingList")
                 Log.d(
                     "ObjectDetectionAnalyzer", "Generated embeddings of size: ${embeddingList.size}"
@@ -311,6 +294,9 @@ class MainViewModel @Inject constructor(
 
     fun getEmbeddingSimilarity(index: Int): List<ObjectWithScore<GroceryItem>> {
         val groceryItem = scanningState.detectedObjects[index]
+        if (groceryItem.imageEmbeddings.isEmpty()) {
+            return emptyList()
+        }
         val query = groceryBox.query(
             GroceryItem_.embeddings.nearestNeighbors(
                 groceryItem.imageEmbeddings.toFloatArray(), 5
@@ -403,6 +389,9 @@ class MainViewModel @Inject constructor(
     fun detectAndAddLastGroceryItem() {
         viewModelScope.launch {
             val size = scanningState.detectedObjects.size
+            if (size < 2) {
+                return@launch
+            }
             val scores = getEmbeddingSimilarity(size-2)
             var foundItem: ObjectWithScore<GroceryItem>? = null
             for (score in scores) {

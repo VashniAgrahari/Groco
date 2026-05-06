@@ -4,6 +4,9 @@ appId: com.vashuag.grocery
     clearState: true
     permissions:
       all: allow
+- tapOn:
+    text: "Wait"
+    optional: true
 - assertVisible: "My Grocery Items"
 - tapOn: "Load Demo Data"
 - assertVisible: "Amul Gold Milk"

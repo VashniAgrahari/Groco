@@ -19,7 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Remove
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledTonalButton
@@ -41,7 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import android.graphics.BitmapFactory
-import com.vashuag.grocery.BuildConfig
+import android.content.pm.ApplicationInfo
 import com.vashuag.grocery.data.entity.GroceryItem
 import java.io.File
 import java.text.SimpleDateFormat
@@ -55,6 +55,10 @@ fun HomeScreen(
     onCompareClick: (GroceryItem) -> Unit = {}
 ) {
     val groceryItems by viewModel.groceryItems.collectAsState()
+    val isDebuggable = (
+        androidx.compose.ui.platform.LocalContext.current.applicationInfo.flags and
+            ApplicationInfo.FLAG_DEBUGGABLE
+        ) != 0
 
     Column(
         modifier = modifier
@@ -88,7 +92,7 @@ fun HomeScreen(
             }
         }
 
-        if (BuildConfig.DEBUG) {
+        if (isDebuggable) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -227,27 +231,21 @@ fun GroceryItemCard(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    IconButton(
+                    Button(
                         onClick = onDecrementQuantity,
                         modifier = Modifier.testTag("quantity_decrease_button")
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Remove,
-                            contentDescription = "Decrease quantity"
-                        )
+                        Text("-")
                     }
                     Text(
                         text = "Qty ${formatQuantity(item.quantity)} ${item.unit}",
                         style = MaterialTheme.typography.bodyMedium
                     )
-                    IconButton(
+                    Button(
                         onClick = onIncrementQuantity,
                         modifier = Modifier.testTag("quantity_increase_button")
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Add,
-                            contentDescription = "Increase quantity"
-                        )
+                        Text("+")
                     }
                 }
 

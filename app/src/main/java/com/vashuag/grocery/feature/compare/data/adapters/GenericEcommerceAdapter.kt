@@ -261,7 +261,7 @@ abstract class GenericEcommerceAdapter(
                             return text
                         }
                     } else {
-                        val text = value.contentOrNull?.trim().orEmpty()
+                        val text = value.content.trim()
                         if (text.isNotBlank()) {
                             return text
                         }
@@ -296,7 +296,7 @@ abstract class GenericEcommerceAdapter(
         keys.forEach { key ->
             when (val value = this[key]) {
                 is JsonPrimitive -> {
-                    val content = value.contentOrNull?.trim().orEmpty()
+                    val content = value.content.trim()
                     if (content.startsWith("http")) {
                         return content
                     }
@@ -305,7 +305,7 @@ abstract class GenericEcommerceAdapter(
                 is JsonArray -> {
                     value.forEach { item ->
                         val candidate = when (item) {
-                            is JsonPrimitive -> item.contentOrNull
+                            is JsonPrimitive -> item.content
                             is JsonObject -> item.stringByKeys("url", "image", "thumbnail", "m", "l", "xl")
                             else -> null
                         }
