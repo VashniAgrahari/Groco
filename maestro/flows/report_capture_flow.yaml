@@ -1,0 +1,39 @@
+appId: com.vashuag.grocery
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+- tapOn:
+    text: "Wait"
+    optional: true
+- assertVisible: "My Grocery Items"
+- takeScreenshot:
+    path: report-work/assets/ss_home_empty
+- tapOn: "Load Demo Data"
+- assertVisible: "Amul Gold Milk"
+- takeScreenshot:
+    path: report-work/assets/ss_home_with_items
+- tapOn:
+    id: "topbar_location_settings_button"
+- assertVisible:
+    id: "location_city_input"
+- takeScreenshot:
+    path: report-work/assets/ss_location_settings
+- tapOn:
+    id: "topbar_back_button"
+- assertVisible: "My Grocery Items"
+- tapOn:
+    id: "compare_item_button"
+- assertVisible: "Item name"
+- tapOn: "Compare"
+- assertVisible:
+    text: "Results for .*"
+- takeScreenshot:
+    path: report-work/assets/ss_compare_results
+- pressKey: back
+- assertVisible: "My Grocery Items"
+- tapOn: "Add Item"
+- assertVisible: "Front|Error:"
+- takeScreenshot:
+    path: report-work/assets/ss_scan_screen
